@@ -21,16 +21,20 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credenciales)) {
-            $rol = Auth::user()->rol;
+            $name = Auth::user()->name;
+            $rol  = Auth::user()->rol;
 
             if ($rol === 'administrador') {
-                return to_route('admin.dashboard');
+                return to_route('admin.dashboard')
+                    ->with('toast_success', "¡Bienvenido al panel de administración, {$name}!");
             }
 
-            return to_route('home');
+            return to_route('home')
+                ->with('toast_success', "¡Bienvenido, {$name}!");
         }
 
-        return to_route('login');
+        return redirect()->back()
+            ->with('toast_error', 'Credenciales incorrectas. Verifica tu correo y contraseña.');
     }
 
     public function logout()

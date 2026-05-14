@@ -58,7 +58,7 @@
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                     {{ Auth::user()->name ?? 'Administrador' }}
                 </span>
-                <span class="badge badge-danger mr-2 d-none d-lg-inline" style="font-size: 0.65rem; vertical-align: middle;">
+                <span class="badge badge-danger mr-2 d-none d-lg-inline topbar-role-badge">
                     Administrador
                 </span>
                 <img class="img-profile rounded-circle" src="/startbootstrap/img/undraw_profile.svg" alt="Perfil">

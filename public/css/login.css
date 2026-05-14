@@ -1,0 +1,24 @@
+/* =============================================================
+   LOGIN PAGE — Estilos del contenedor de video y formulario
+   Archivo: public/css/login.css
+   ============================================================= */
+
+/* Contenedor del video lateral izquierdo */
+.login-video-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.35rem 0 0 0.35rem;
+    background-color: #fff;
+    min-height: 380px;
+}
+
+/* Elemento <video> que ocupa todo el contenedor */
+.login-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 20%;
+}

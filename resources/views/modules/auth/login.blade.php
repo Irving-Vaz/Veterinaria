@@ -14,17 +14,13 @@
                     <div class="row">
                         {{-- Imagen decorativa (visible solo en pantallas grandes) --}}
                         {{-- Video decorativo lado izquierdo --}}
-                        <div class="col-lg-6 d-none d-lg-block p-0"
-                             style="position: relative; overflow: hidden; border-radius: 0.35rem 0 0 0.35rem; background-color: #fff; min-height: 380px;">
+                        <div class="col-lg-6 d-none d-lg-block p-0 login-video-wrapper">
                             <video
+                                class="login-video"
                                 autoplay
                                 loop
                                 muted
-                                playsinline
-                                style="position: absolute; top: 0; left: 0;
-                                       width: 100%; height: 100%;
-                                       object-fit: cover;
-                                       object-position: 60% 20%;">
+                                playsinline>
                                 <source src="/IMG/logo1.mp4" type="video/mp4">
                             </video>
                         </div>

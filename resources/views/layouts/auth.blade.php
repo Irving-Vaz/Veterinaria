@@ -19,10 +19,20 @@
     {{-- SB Admin 2 CSS --}}
     <link href="/startbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 
+    {{-- Login custom styles --}}
+    <link href="/css/login.css" rel="stylesheet">
+
+    {{-- Toast notifications --}}
+    <link href="/css/toast.css" rel="stylesheet">
+
     @stack('styles')
 </head>
 
 <body class="bg-gradient-primary">
+
+    {{-- ===== TOAST NOTIFICATIONS ===== --}}
+    @include('layouts.shared.toast')
+    {{-- ===== FIN TOASTS ===== --}}
 
     {{-- Contenido de la página de autenticación --}}
     @yield('contenido')
@@ -36,6 +46,9 @@
 
     {{-- SB Admin 2 scripts --}}
     <script src="/startbootstrap/js/sb-admin-2.min.js"></script>
+
+    {{-- Toast JS --}}
+    <script src="/js/toast.js"></script>
 
     @stack('scripts')
 

@@ -1,0 +1,72 @@
+/* =============================================================
+   TOAST NOTIFICATIONS — Sistema Veterinaria
+   Archivo: public/css/toast.css
+   ============================================================= */
+
+/* Contenedor fijo en la esquina superior derecha */
+.toast-container-fixed {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 1090;
+    min-width: 320px;
+    max-width: 400px;
+}
+
+/* Base del toast */
+.app-toast {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+    opacity: 0;
+}
+
+/* Cabecera por tipo */
+.toast-success .toast-header {
+    background-color: #1cc88a;
+    color: #fff;
+}
+
+.toast-error .toast-header {
+    background-color: #e74a3b;
+    color: #fff;
+}
+
+.toast-warning .toast-header {
+    background-color: #f6c23e;
+    color: #fff;
+}
+
+.toast-info .toast-header {
+    background-color: #36b9cc;
+    color: #fff;
+}
+
+/* Botón de cierre siempre blanco en todos los tipos */
+.app-toast .toast-header .close {
+    color: #fff;
+    opacity: 0.85;
+    text-shadow: none;
+}
+
+.app-toast .toast-header .close:hover {
+    opacity: 1;
+}
+
+/* Barra de progreso animada al pie del toast */
+.toast-progress {
+    height: 3px;
+    width: 100%;
+    animation: toast-shrink 4.5s linear forwards;
+}
+
+.toast-success .toast-progress { background-color: #1cc88a; }
+.toast-error   .toast-progress { background-color: #e74a3b; }
+.toast-warning .toast-progress { background-color: #f6c23e; }
+.toast-info    .toast-progress { background-color: #36b9cc; }
+
+@keyframes toast-shrink {
+    from { width: 100%; }
+    to   { width: 0%;   }
+}

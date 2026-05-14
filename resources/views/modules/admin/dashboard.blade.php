@@ -99,9 +99,9 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center mb-3">
-                        <img class="img-fluid rounded-circle mb-3"
+                        <img class="img-fluid rounded-circle mb-3 admin-profile-img"
                             src="/startbootstrap/img/undraw_profile.svg"
-                            alt="Perfil" style="width: 80px;">
+                            alt="Perfil">
                         <h5 class="font-weight-bold text-gray-800">{{ Auth::user()->name }}</h5>
                         <span class="badge badge-danger px-3 py-1">Administrador</span>
                     </div>

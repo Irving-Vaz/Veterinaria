@@ -1,0 +1,15 @@
+/* =============================================================
+   ADMIN PANEL — Estilos específicos del panel de administrador
+   Archivo: public/css/admin.css
+   ============================================================= */
+
+/* Badge de rol en el topbar del administrador */
+.topbar-role-badge {
+    font-size: 0.65rem;
+    vertical-align: middle;
+}
+
+/* Imagen de perfil en la card de bienvenida del dashboard */
+.admin-profile-img {
+    width: 80px;
+}

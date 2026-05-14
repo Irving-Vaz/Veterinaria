@@ -19,6 +19,12 @@
     {{-- SB Admin 2 CSS --}}
     <link href="/startbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 
+    {{-- Admin panel custom styles --}}
+    <link href="/css/admin.css" rel="stylesheet">
+
+    {{-- Toast notifications --}}
+    <link href="/css/toast.css" rel="stylesheet">
+
     @stack('styles')
 </head>
 
@@ -71,6 +77,10 @@
     </div>
     {{-- End of Page Wrapper --}}
 
+    {{-- ===== TOAST NOTIFICATIONS ===== --}}
+    @include('layouts.shared.toast')
+    {{-- ===== FIN TOASTS ===== --}}
+
     {{-- Scroll to Top Button --}}
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
@@ -89,6 +99,9 @@
 
     {{-- SB Admin 2 scripts --}}
     <script src="/startbootstrap/js/sb-admin-2.min.js"></script>
+
+    {{-- Toast JS --}}
+    <script src="/js/toast.js"></script>
 
     @stack('scripts')
 
