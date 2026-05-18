@@ -25,4 +25,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/usuarios/{usuario}', [\App\Http\Controllers\Admin\UsuariosController::class, 'update'])->name('users.update');
     Route::get('/usuarios/{usuario}', [\App\Http\Controllers\Admin\UsuariosController::class, 'show'])->name('users.show');
     Route::delete('/usuarios/{usuario}', [\App\Http\Controllers\Admin\UsuariosController::class, 'destroy'])->name('users.destroy');
+    
+    // Expedientes
+    Route::get('/expedientes', [\App\Http\Controllers\Admin\ExpedientesController::class, 'index'])->name('expedientes.index');
 });

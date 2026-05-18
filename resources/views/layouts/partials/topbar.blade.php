@@ -6,9 +6,20 @@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     {{-- Botón para abrir/cerrar sidebar en móvil --}}
-    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-        <i class="fa fa-bars"></i>
-    </button>
+    @unless(View::hasSection('hide_sidebar'))
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+        </button>
+    @endunless
+
+    {{-- Navegación Horizontal --}}
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold {{ request()->routeIs('admin.expedientes.*') ? 'text-primary' : 'text-gray-600' }}" href="{{ route('admin.expedientes.index') }}">
+                <i class="fas fa-folder-open mr-1"></i> Expedientes
+            </a>
+        </li>
+    </ul>
 
     {{-- Buscador en topbar --}}
     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
