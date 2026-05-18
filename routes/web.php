@@ -28,4 +28,5 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     
     // Expedientes
     Route::get('/expedientes', [\App\Http\Controllers\Admin\ExpedientesController::class, 'index'])->name('expedientes.index');
+    Route::get('/expedientes/buscar', [\App\Http\Controllers\Admin\ExpedientesController::class, 'search'])->name('expedientes.search');
 });

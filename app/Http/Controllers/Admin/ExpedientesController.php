@@ -11,4 +11,25 @@ class ExpedientesController extends Controller
     {
         return view('modules.admin.expedientes.index');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('q', '');
+        
+        if (empty($query)) {
+            return response()->json([]);
+        }
+
+        $mascotas = \App\Models\Mascota::search($query)
+            ->query(function ($builder) use ($query) {
+                $builder->with('dueno')
+                        ->orWhereHas('dueno', function ($q) use ($query) {
+                            $q->where('nombre_completo', 'like', '%' . $query . '%');
+                        });
+            })
+            ->take(5)
+            ->get();
+
+        return response()->json($mascotas);
+    }
 }
