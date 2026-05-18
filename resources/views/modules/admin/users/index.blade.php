@@ -5,7 +5,7 @@
 @section('page_heading', 'Usuarios del Sistema')
 
 @section('page_actions')
-    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+    <a href="{{ route('admin.users.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
         <i class="fas fa-plus fa-sm text-white-50"></i> Nuevo Usuario
     </a>
 @endsection

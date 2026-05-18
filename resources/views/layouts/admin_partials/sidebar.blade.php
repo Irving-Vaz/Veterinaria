@@ -44,7 +44,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Cuentas:</h6>
                 <a class="collapse-item {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">Ver Todos</a>
-                <a class="collapse-item" href="#">Nuevo Usuario</a>
+                <a class="collapse-item {{ request()->routeIs('admin.users.create') ? 'active' : '' }}" href="{{ route('admin.users.create') }}">Nuevo Usuario</a>
             </div>
         </div>
     </li>
