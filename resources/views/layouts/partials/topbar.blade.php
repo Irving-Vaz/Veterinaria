@@ -13,7 +13,13 @@
     @endunless
 
     {{-- Navegación Horizontal --}}
-    <ul class="navbar-nav">
+    <ul class="navbar-nav align-items-center">
+        {{-- Enlace principal (Brand) --}}
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold text-dark h5 mb-0 mr-3" href="{{ route('home') }}">
+                <i class="fas fa-paw text-primary mr-1"></i> Sistema Veterinario
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link font-weight-bold {{ request()->routeIs('admin.expedientes.*') ? 'text-primary' : 'text-gray-600' }}" href="{{ route('admin.expedientes.index') }}">
                 <i class="fas fa-folder-open mr-1"></i> Expedientes
