@@ -46,4 +46,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Un usuario (si es de rol veterinario) tiene un perfil de veterinario
+     */
+    public function veterinario()
+    {
+        return $this->hasOne(Veterinario::class, 'usuario_id');
+    }
 }
