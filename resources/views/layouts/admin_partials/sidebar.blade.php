@@ -33,17 +33,17 @@
     </div>
 
     {{-- Usuarios --}}
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsuarios"
-            aria-expanded="true" aria-controls="collapseUsuarios">
+    <li class="nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+        <a class="nav-link {{ request()->routeIs('admin.users.*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseUsuarios"
+            aria-expanded="{{ request()->routeIs('admin.users.*') ? 'true' : 'false' }}" aria-controls="collapseUsuarios">
             <i class="fas fa-fw fa-users-cog"></i>
             <span>Usuarios</span>
         </a>
-        <div id="collapseUsuarios" class="collapse" aria-labelledby="headingUsuarios"
+        <div id="collapseUsuarios" class="collapse {{ request()->routeIs('admin.users.*') ? 'show' : '' }}" aria-labelledby="headingUsuarios"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Cuentas:</h6>
-                <a class="collapse-item" href="#">Ver Todos</a>
+                <a class="collapse-item {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">Ver Todos</a>
                 <a class="collapse-item" href="#">Nuevo Usuario</a>
             </div>
         </div>

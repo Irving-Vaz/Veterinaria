@@ -18,4 +18,5 @@ Route::middleware('auth')->group(function () {
 // ── Rutas del Administrador ──────────────────────────────────────
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AuthController::class, 'adminDashboard'])->name('dashboard');
+    Route::get('/usuarios', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
 });
