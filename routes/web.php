@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
 // ── Rutas del Administrador ──────────────────────────────────────
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AuthController::class, 'adminDashboard'])->name('dashboard');
-    Route::get('/usuarios', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
-    Route::get('/usuarios/crear', [\App\Http\Controllers\Admin\UserController::class, 'create'])->name('users.create');
-    Route::post('/usuarios', [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
+    Route::get('/usuarios', [\App\Http\Controllers\Admin\UsuariosController::class, 'index'])->name('users.index');
+    Route::get('/usuarios/crear', [\App\Http\Controllers\Admin\UsuariosController::class, 'create'])->name('users.create');
+    Route::post('/usuarios', [\App\Http\Controllers\Admin\UsuariosController::class, 'store'])->name('users.store');
 });

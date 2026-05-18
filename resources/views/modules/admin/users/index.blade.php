@@ -24,6 +24,7 @@
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Rol</th>
+                            <th>Estado</th>
                             <th>Fecha de Registro</th>
                             <th>Acciones</th>
                         </tr>
@@ -41,6 +42,13 @@
                                         <span class="badge badge-warning">Veterinario</span>
                                     @endif
                                 </td>
+                                <td>
+                                    @if($user->is_active)
+                                        <span class="badge badge-success">Activo</span>
+                                    @else
+                                        <span class="badge badge-secondary">Inactivo</span>
+                                    @endif
+                                </td>
                                 <td>{{ $user->created_at ? $user->created_at->format('d/m/Y') : 'N/A' }}</td>
                                 <td>
                                     <a href="#" class="btn btn-sm btn-info btn-circle" title="Editar">
@@ -53,7 +61,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center text-gray-500 py-4">
+                                <td colspan="7" class="text-center text-gray-500 py-4">
                                     <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
                                     No hay usuarios registrados aún.
                                 </td>
