@@ -12,7 +12,7 @@ class UsuariosController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(5);
         return view('modules.admin.users.index', compact('users'));
     }
 
@@ -98,5 +98,40 @@ class UsuariosController extends Controller
         });
 
         return redirect()->route('admin.users.index')->with('toast_success', 'Usuario actualizado correctamente.');
+    }
+
+    public function show(User $usuario)
+    {
+        $usuario->load('veterinario');
+        return view('modules.admin.users.show', compact('usuario'));
+    }
+
+    public function destroy(User $usuario)
+    {
+        if ($usuario->id === \Illuminate\Support\Facades\Auth::id()) {
+            return redirect()->route('admin.users.index')->with('toast_error', 'No puedes eliminar tu propia cuenta mientras estás en sesión.');
+        }
+
+        try {
+            \Illuminate\Support\Facades\DB::transaction(function () use ($usuario) {
+                if ($usuario->veterinario) {
+                    if ($usuario->veterinario->foto_firma && \Illuminate\Support\Facades\Storage::disk('public')->exists($usuario->veterinario->foto_firma)) {
+                        \Illuminate\Support\Facades\Storage::disk('public')->delete($usuario->veterinario->foto_firma);
+                    }
+                }
+
+                $usuario->delete();
+            });
+
+            return redirect()->route('admin.users.index')->with('toast_success', 'Usuario eliminado permanentemente.');
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            // El código 23000 corresponde a problemas de integridad referencial (Foreign Keys)
+            if ($e->getCode() === "23000") {
+                return redirect()->route('admin.users.index')->with('toast_error', 'No se puede eliminar este usuario porque ya tiene registros o historial dependiente en el sistema.');
+            }
+            
+            return redirect()->route('admin.users.index')->with('toast_error', 'Ocurrió un error al intentar eliminar el usuario.');
+        }
     }
 }

@@ -54,7 +54,7 @@
                                     <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-info btn-circle" title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-secondary btn-circle" title="Eliminar">
+                                    <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-sm btn-danger btn-circle" title="Ver / Eliminar">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
@@ -69,6 +69,11 @@
                         @endforelse
                     </tbody>
                 </table>
+            </div>
+
+            {{-- Paginación --}}
+            <div class="d-flex justify-content-center mt-4">
+                {{ $users->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>

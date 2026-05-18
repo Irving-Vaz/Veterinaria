@@ -23,4 +23,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/usuarios', [\App\Http\Controllers\Admin\UsuariosController::class, 'store'])->name('users.store');
     Route::get('/usuarios/{usuario}/editar', [\App\Http\Controllers\Admin\UsuariosController::class, 'edit'])->name('users.edit');
     Route::put('/usuarios/{usuario}', [\App\Http\Controllers\Admin\UsuariosController::class, 'update'])->name('users.update');
+    Route::get('/usuarios/{usuario}', [\App\Http\Controllers\Admin\UsuariosController::class, 'show'])->name('users.show');
+    Route::delete('/usuarios/{usuario}', [\App\Http\Controllers\Admin\UsuariosController::class, 'destroy'])->name('users.destroy');
 });
