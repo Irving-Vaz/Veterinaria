@@ -21,4 +21,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/usuarios', [\App\Http\Controllers\Admin\UsuariosController::class, 'index'])->name('users.index');
     Route::get('/usuarios/crear', [\App\Http\Controllers\Admin\UsuariosController::class, 'create'])->name('users.create');
     Route::post('/usuarios', [\App\Http\Controllers\Admin\UsuariosController::class, 'store'])->name('users.store');
+    Route::get('/usuarios/{usuario}/editar', [\App\Http\Controllers\Admin\UsuariosController::class, 'edit'])->name('users.edit');
+    Route::put('/usuarios/{usuario}', [\App\Http\Controllers\Admin\UsuariosController::class, 'update'])->name('users.update');
 });

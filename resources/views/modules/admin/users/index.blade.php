@@ -51,7 +51,7 @@
                                 </td>
                                 <td>{{ $user->created_at ? $user->created_at->format('d/m/Y') : 'N/A' }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-info btn-circle" title="Editar">
+                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-info btn-circle" title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <a href="#" class="btn btn-sm btn-secondary btn-circle" title="Eliminar">
