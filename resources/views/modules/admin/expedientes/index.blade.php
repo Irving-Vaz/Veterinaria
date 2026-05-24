@@ -21,11 +21,6 @@
                         <form action="#" method="GET" id="searchForm">
                             <div class="input-group input-group-lg shadow-sm">
                                 <input type="text" id="searchInput" class="form-control border-0 bg-light" placeholder="Ej. Firulais, Juan Pérez..." autocomplete="off">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary px-4" type="button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
                             </div>
                         </form>
                         
