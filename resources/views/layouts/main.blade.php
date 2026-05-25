@@ -32,7 +32,11 @@
 
         {{-- ===== SIDEBAR ===== --}}
         @unless(View::hasSection('hide_sidebar'))
-            @include('layouts.partials.sidebar')
+            @if(View::hasSection('custom_sidebar'))
+                @yield('custom_sidebar')
+            @else
+                @include('layouts.partials.sidebar')
+            @endif
         @endunless
         {{-- ===== FIN SIDEBAR ===== --}}
 
