@@ -84,8 +84,8 @@
                                             <td class="align-middle">
                                                 <div class="text-gray-800">{{ $consulta->peso ? $consulta->peso . ' kg' : 'N/A' }}</div>
                                             </td>
-                                            <td class="align-middle">{{ Str::limit($consulta->diagnostico, 50) }}</td>
-                                            <td class="align-middle">{{ Str::limit($consulta->tratamiento, 50) }}</td>
+                                            <td class="align-middle">{{ Str::limit(strip_tags($consulta->diagnostico), 50) }}</td>
+                                            <td class="align-middle">{{ Str::limit(strip_tags($consulta->tratamiento), 50) }}</td>
                                             <td class="align-middle text-center">
                                                 <a href="{{ route('admin.expedientes.consultas.show', ['mascota' => $mascota->id, 'consulta' => $consulta->id]) }}" class="btn btn-info btn-circle btn-sm shadow-sm" title="Ver Detalle">
                                                     <i class="fas fa-eye"></i>

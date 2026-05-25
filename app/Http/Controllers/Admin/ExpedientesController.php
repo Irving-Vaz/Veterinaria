@@ -54,4 +54,41 @@ class ExpedientesController extends Controller
 
         return view('modules.admin.expedientes.consulta_detalle', compact('mascota', 'consulta'));
     }
+
+    public function diagnostico(\App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        return view('modules.admin.expedientes.diagnostico', compact('mascota', 'consulta'));
+    }
+
+    public function guardarDiagnostico(Request $request, \App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        $request->validate([
+            'diagnostico' => 'required|string'
+        ]);
+
+        $esNuevo = empty($consulta->diagnostico) || trim(strip_tags($consulta->diagnostico)) === 'Aún sin diagnóstico';
+
+        $nuevoDiagnostico = $request->input('diagnostico');
+        
+        // Evitar que Quill guarde un tag vacío como un diagnóstico real
+        if (trim(strip_tags($nuevoDiagnostico)) === '') {
+            $nuevoDiagnostico = null;
+        }
+        
+        $consulta->diagnostico = $nuevoDiagnostico;
+        $consulta->save();
+
+        $mensaje = $esNuevo ? 'Se guardó la información' : 'Se actualizó con éxito';
+
+        return redirect()->route('admin.expedientes.consultas.diagnostico', [$mascota->id, $consulta->id])
+                         ->with('toast_success', $mensaje);
+    }
 }

@@ -31,4 +31,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/expedientes/buscar', [\App\Http\Controllers\Admin\ExpedientesController::class, 'search'])->name('expedientes.search');
     Route::get('/expedientes/{mascota}/consultas', [\App\Http\Controllers\Admin\ExpedientesController::class, 'consultas'])->name('expedientes.consultas');
     Route::get('/expedientes/{mascota}/consultas/{consulta}', [\App\Http\Controllers\Admin\ExpedientesController::class, 'detalleConsulta'])->name('expedientes.consultas.show');
+    Route::get('/expedientes/{mascota}/consultas/{consulta}/diagnostico', [\App\Http\Controllers\Admin\ExpedientesController::class, 'diagnostico'])->name('expedientes.consultas.diagnostico');
+    Route::post('/expedientes/{mascota}/consultas/{consulta}/diagnostico', [\App\Http\Controllers\Admin\ExpedientesController::class, 'guardarDiagnostico'])->name('expedientes.consultas.diagnostico.store');
 });
