@@ -41,4 +41,17 @@ class ExpedientesController extends Controller
 
         return view('modules.admin.expedientes.consultas', compact('mascota'));
     }
+
+    public function detalleConsulta(\App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        // Asegurarse de que la consulta pertenece a la mascota
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        $mascota->load('dueno');
+        $consulta->load('veterinario');
+
+        return view('modules.admin.expedientes.consulta_detalle', compact('mascota', 'consulta'));
+    }
 }

@@ -30,4 +30,5 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/expedientes', [\App\Http\Controllers\Admin\ExpedientesController::class, 'index'])->name('expedientes.index');
     Route::get('/expedientes/buscar', [\App\Http\Controllers\Admin\ExpedientesController::class, 'search'])->name('expedientes.search');
     Route::get('/expedientes/{mascota}/consultas', [\App\Http\Controllers\Admin\ExpedientesController::class, 'consultas'])->name('expedientes.consultas');
+    Route::get('/expedientes/{mascota}/consultas/{consulta}', [\App\Http\Controllers\Admin\ExpedientesController::class, 'detalleConsulta'])->name('expedientes.consultas.show');
 });
