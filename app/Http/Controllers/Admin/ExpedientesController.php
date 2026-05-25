@@ -32,4 +32,13 @@ class ExpedientesController extends Controller
 
         return response()->json($mascotas);
     }
+
+    public function consultas(\App\Models\Mascota $mascota)
+    {
+        $mascota->load(['dueno', 'consultas' => function ($query) {
+            $query->with('veterinario')->orderBy('fecha_consulta', 'desc');
+        }]);
+
+        return view('modules.admin.expedientes.consultas', compact('mascota'));
+    }
 }

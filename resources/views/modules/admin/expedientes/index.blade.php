@@ -34,7 +34,7 @@
 
                     {{-- Botones de Acción --}}
                     <div class="d-flex justify-content-center flex-wrap">
-                        <a href="#" class="btn btn-info btn-icon-split shadow-sm m-2">
+                        <a href="#" id="btnVerConsultas" class="btn btn-info btn-icon-split shadow-sm m-2 disabled">
                             <span class="icon text-white-50">
                                 <i class="fas fa-notes-medical"></i>
                             </span>
@@ -60,7 +60,9 @@
     document.addEventListener('DOMContentLoaded', function () {
         const searchInput = document.getElementById('searchInput');
         const searchResults = document.getElementById('searchResults');
+        const btnVerConsultas = document.getElementById('btnVerConsultas');
         let timeout = null;
+        let selectedMascotaId = null;
 
         searchInput.addEventListener('input', function (e) {
             clearTimeout(timeout);
@@ -86,8 +88,11 @@
 
                             data.forEach(mascota => {
                                 const a = document.createElement('a');
-                                a.href = '#'; // TODO: Cambiar por ruta show
+                                a.href = '#';
                                 a.className = 'list-group-item list-group-item-action d-flex align-items-center py-3';
+                                a.dataset.id = mascota.id;
+                                a.dataset.nombre = mascota.nombre;
+                                
                                 a.innerHTML = `
                                     <div class="mr-3 text-primary bg-light rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
                                         <i class="fas fa-paw fa-lg"></i>
@@ -100,6 +105,18 @@
                                         <i class="fas fa-chevron-right"></i>
                                     </div>
                                 `;
+                                
+                                a.addEventListener('click', function(ev) {
+                                    ev.preventDefault();
+                                    selectedMascotaId = mascota.id;
+                                    searchInput.value = mascota.nombre;
+                                    searchResults.style.display = 'none';
+                                    
+                                    // Update button URL
+                                    btnVerConsultas.href = `/admin/expedientes/${mascota.id}/consultas`;
+                                    btnVerConsultas.classList.remove('disabled');
+                                });
+
                                 list.appendChild(a);
                             });
 
