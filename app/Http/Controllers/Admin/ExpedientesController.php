@@ -97,8 +97,23 @@ class ExpedientesController extends Controller
 
         $consulta = new \App\Models\Consulta();
         $consulta->mascota_id = $mascota->id;
-        // Asignamos el ID del veterinario autenticado, o el 2 por defecto si estamos probando
-        $consulta->veterinario_id = auth()->id() ?: 2; 
+        
+        // Buscar el perfil de veterinario del usuario actual
+        $vet = \App\Models\Veterinario::where('usuario_id', auth()->id())->first();
+        
+        // Si no tiene perfil (ej. es admin o un usuario nuevo), le creamos uno automáticamente
+        // para que tome el nombre de la sesión activa
+        if (!$vet) {
+            $vet = \App\Models\Veterinario::create([
+                'usuario_id' => auth()->id(),
+                'nombre_completo' => auth()->user()->name,
+                'especialidad' => 'Medicina General',
+                'cedula_profesional' => 'En trámite',
+            ]);
+        }
+        
+        $consulta->veterinario_id = $vet->id; 
+        
         $consulta->fecha_consulta = now();
         $consulta->peso = $request->input('peso');
         $consulta->temperatura = $request->input('temperatura');
@@ -119,6 +134,33 @@ class ExpedientesController extends Controller
         $consulta->load('veterinario');
 
         return view('modules.admin.expedientes.consulta_detalle', compact('mascota', 'consulta'));
+    }
+
+    public function descargarReceta(\App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        $mascota->load('dueno');
+        // El veterinario que atendió (veterinario_id guarda el id de la tabla veterinarios)
+        $veterinario = \App\Models\Veterinario::find($consulta->veterinario_id);
+
+        // Buscar si hay una dieta terapéutica vinculada a esta consulta o permanente
+        $dietaEspecial = null;
+        if (is_array($mascota->alimentacion)) {
+            foreach ($mascota->alimentacion as $dieta) {
+                if ((isset($dieta['consulta_id']) && $dieta['consulta_id'] == $consulta->id) || (isset($dieta['permanente']) && $dieta['permanente'])) {
+                    $dietaEspecial = $dieta;
+                    break;
+                }
+            }
+        }
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('modules.admin.expedientes.receta_pdf', compact('mascota', 'consulta', 'veterinario', 'dietaEspecial'))
+            ->setPaper('a4', 'landscape');
+
+        return $pdf->download('Receta_' . $mascota->nombre . '_Folio_' . str_pad($consulta->id, 3, '0', STR_PAD_LEFT) . '.pdf');
     }
 
     public function diagnostico(\App\Models\Mascota $mascota, \App\Models\Consulta $consulta)

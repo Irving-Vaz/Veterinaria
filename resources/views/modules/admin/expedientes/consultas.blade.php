@@ -173,6 +173,9 @@
                                                 <a href="{{ route('admin.expedientes.consultas.show', ['mascota' => $mascota->id, 'consulta' => $consulta->id]) }}" class="btn btn-info btn-circle btn-sm shadow-sm" title="Ver Detalle">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
+                                                <a href="{{ route('admin.expedientes.consultas.receta', ['mascota' => $mascota->id, 'consulta' => $consulta->id]) }}" class="btn btn-danger btn-circle btn-sm shadow-sm" title="Descargar Receta PDF">
+                                                    <i class="fas fa-file-pdf"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
