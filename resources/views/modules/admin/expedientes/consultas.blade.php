@@ -110,7 +110,9 @@
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Consultas Registradas ({{ $mascota->consultas->count() }})</h6>
-                    <a href="#" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50 mr-1"></i> Nueva Consulta</a>
+                    <button type="button" class="btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#nuevaConsultaModal">
+                        <i class="fas fa-plus fa-sm text-white-50 mr-1"></i> Nueva Consulta
+                    </button>
                 </div>
                 <div class="card-body">
                     @if($mascota->consultas->count() > 0)
@@ -188,3 +190,57 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    {{-- Modal Nueva Consulta --}}
+    <div class="modal fade" id="nuevaConsultaModal" tabindex="-1" role="dialog" aria-labelledby="nuevaConsultaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="nuevaConsultaModalLabel"><i class="fas fa-notes-medical mr-2"></i> Iniciar Nueva Consulta</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('admin.expedientes.consultas.store', $mascota->id) }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <p class="text-muted mb-4">
+                            Complete los signos vitales iniciales del paciente. La fecha, hora y el veterinario responsable se registrarán automáticamente.
+                        </p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="font-weight-bold text-gray-700" for="peso">Peso (kg)</label>
+                                <div class="input-group">
+                                    <input type="number" step="0.01" min="0" class="form-control" id="peso" name="peso" placeholder="Ej. 12.50" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">kg</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="font-weight-bold text-gray-700" for="temperatura">Temperatura (°C)</label>
+                                <div class="input-group">
+                                    <input type="number" step="0.1" min="0" max="50" class="form-control" id="temperatura" name="temperatura" placeholder="Ej. 38.5" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">°C</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-play"></i>
+                            </span>
+                            <span class="text">Iniciar Consulta</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endpush

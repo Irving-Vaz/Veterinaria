@@ -88,6 +88,26 @@ class ExpedientesController extends Controller
         return view('modules.admin.expedientes.consultas', compact('mascota'));
     }
 
+    public function storeConsulta(Request $request, \App\Models\Mascota $mascota)
+    {
+        $request->validate([
+            'peso' => 'nullable|numeric|min:0',
+            'temperatura' => 'nullable|numeric|min:0|max:50',
+        ]);
+
+        $consulta = new \App\Models\Consulta();
+        $consulta->mascota_id = $mascota->id;
+        // Asignamos el ID del veterinario autenticado, o el 2 por defecto si estamos probando
+        $consulta->veterinario_id = auth()->id() ?: 2; 
+        $consulta->fecha_consulta = now();
+        $consulta->peso = $request->input('peso');
+        $consulta->temperatura = $request->input('temperatura');
+        $consulta->save();
+
+        return redirect()->route('admin.expedientes.consultas.diagnostico', [$mascota->id, $consulta->id])
+                         ->with('toast_success', 'Consulta iniciada. Puede continuar con el diagnóstico.');
+    }
+
     public function detalleConsulta(\App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
     {
         // Asegurarse de que la consulta pertenece a la mascota

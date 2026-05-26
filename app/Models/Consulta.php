@@ -12,6 +12,7 @@ class Consulta extends Model
         'fecha_consulta',
         'peso',
         'talla',
+        'temperatura',
         'diagnostico',
         'tratamiento',
     ];
@@ -20,6 +21,7 @@ class Consulta extends Model
         'fecha_consulta' => 'datetime',
         'peso' => 'decimal:2',
         'talla' => 'decimal:2',
+        'temperatura' => 'decimal:2',
         'tratamiento' => 'array',
     ];
 
