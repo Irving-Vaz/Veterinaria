@@ -85,7 +85,33 @@
                                                 <div class="text-gray-800">{{ $consulta->peso ? $consulta->peso . ' kg' : 'N/A' }}</div>
                                             </td>
                                             <td class="align-middle">{{ Str::limit(strip_tags($consulta->diagnostico), 50) }}</td>
-                                            <td class="align-middle">{{ Str::limit(strip_tags($consulta->tratamiento), 50) }}</td>
+                                            <td class="align-middle">
+                                                @if(is_array($consulta->tratamiento))
+                                                    @foreach($consulta->tratamiento as $med)
+                                                        <div class="mb-2" style="font-size: 0.9rem;">
+                                                            <strong>{{ strtoupper($med['nombre'] ?? 'Desconocido') }}</strong> 
+                                                            @if(isset($med['frecuencia']) && $med['frecuencia'] > 0)
+                                                                <span class="badge badge-info">Cada {{ $med['frecuencia'] }} hrs</span>
+                                                            @else
+                                                                <span class="badge badge-secondary">Dosis única</span>
+                                                            @endif
+                                                            <br>
+                                                            <span class="text-muted">Dosis: {{ $med['dosis'] ?? '' }} &mdash; {{ $med['via'] ?? '' }}</span><br>
+                                                            
+                                                            @if(isset($med['frecuencia']) && $med['frecuencia'] > 0)
+                                                                @php
+                                                                    // Simulación de próxima toma basada en la frecuencia
+                                                                    $proxima = now()->addHours((int)$med['frecuencia']);
+                                                                    $formatoDia = $proxima->isToday() ? 'Hoy' : ($proxima->isTomorrow() ? 'Mañana' : $proxima->format('d/m/Y'));
+                                                                @endphp
+                                                                <span class="font-weight-bold text-success" style="font-size: 0.85rem;">Próxima toma: {{ $formatoDia }} a las {{ $proxima->format('h:i A') }}</span>
+                                                            @endif
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    {{ Str::limit(strip_tags($consulta->tratamiento), 50) }}
+                                                @endif
+                                            </td>
                                             <td class="align-middle text-center">
                                                 <a href="{{ route('admin.expedientes.consultas.show', ['mascota' => $mascota->id, 'consulta' => $consulta->id]) }}" class="btn btn-info btn-circle btn-sm shadow-sm" title="Ver Detalle">
                                                     <i class="fas fa-eye"></i>
