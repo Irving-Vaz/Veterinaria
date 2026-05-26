@@ -20,6 +20,7 @@ class Consulta extends Model
         'fecha_consulta' => 'datetime',
         'peso' => 'decimal:2',
         'talla' => 'decimal:2',
+        'tratamiento' => 'array',
     ];
 
     public function mascota()

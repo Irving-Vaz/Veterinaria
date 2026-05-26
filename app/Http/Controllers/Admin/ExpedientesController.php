@@ -12,6 +12,52 @@ class ExpedientesController extends Controller
         return view('modules.admin.expedientes.index');
     }
 
+    public function create()
+    {
+        return view('modules.admin.expedientes.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            // Dueño validation
+            'dueno_nombre' => 'required|string|max:255',
+            'dueno_telefono' => 'required|string|max:20',
+            'dueno_direccion' => 'nullable|string|max:500',
+            
+            // Mascota validation
+            'mascota_nombre' => 'required|string|max:255',
+            'especie' => 'required|string|max:100',
+            'raza' => 'nullable|string|max:100',
+            'fecha_nacimiento' => 'nullable|date',
+            'tipo_sangre' => 'nullable|string|max:10',
+            'comportamiento' => 'nullable|string|max:100',
+            'es_adoptado' => 'nullable|boolean',
+        ]);
+
+        // Create Dueno
+        $dueno = \App\Models\Dueno::create([
+            'nombre_completo' => $request->input('dueno_nombre'),
+            'telefono' => $request->input('dueno_telefono'),
+            'direccion' => $request->input('dueno_direccion'),
+        ]);
+
+        // Create Mascota
+        $mascota = \App\Models\Mascota::create([
+            'dueno_id' => $dueno->id,
+            'nombre' => $request->input('mascota_nombre'),
+            'especie' => $request->input('especie'),
+            'raza' => $request->input('raza'),
+            'fecha_nacimiento' => $request->input('fecha_nacimiento'),
+            'tipo_sangre' => $request->input('tipo_sangre'),
+            'comportamiento' => $request->input('comportamiento'),
+            'es_adoptado' => $request->has('es_adoptado'),
+        ]);
+
+        return redirect()->route('admin.expedientes.consultas', $mascota->id)
+                         ->with('toast_success', 'Paciente registrado con éxito');
+    }
+
     public function search(Request $request)
     {
         $query = $request->input('q', '');
@@ -89,6 +135,41 @@ class ExpedientesController extends Controller
         $mensaje = $esNuevo ? 'Se guardó la información' : 'Se actualizó con éxito';
 
         return redirect()->route('admin.expedientes.consultas.diagnostico', [$mascota->id, $consulta->id])
+                         ->with('toast_success', $mensaje);
+    }
+
+    public function tratamiento(\App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        return view('modules.admin.expedientes.tratamiento', compact('mascota', 'consulta'));
+    }
+
+    public function guardarTratamiento(Request $request, \App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        $request->validate([
+            'medicamentos' => 'required|array|min:1',
+            'medicamentos.*.nombre' => 'required|string|max:255',
+            'medicamentos.*.dosis' => 'required|string|max:100',
+            'medicamentos.*.via' => 'required|string|max:100',
+            'medicamentos.*.frecuencia' => 'required|integer|min:0', // 0 = dosis unica, 8, 12, 24 = horas
+            'medicamentos.*.duracion' => 'required|integer|min:1', // dias
+        ]);
+
+        $esNuevo = empty($consulta->tratamiento);
+
+        $consulta->tratamiento = $request->input('medicamentos');
+        $consulta->save();
+
+        $mensaje = $esNuevo ? 'Tratamiento registrado exitosamente' : 'Tratamiento actualizado con éxito';
+
+        return redirect()->route('admin.expedientes.consultas.tratamiento', [$mascota->id, $consulta->id])
                          ->with('toast_success', $mensaje);
     }
 }

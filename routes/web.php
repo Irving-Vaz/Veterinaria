@@ -29,8 +29,13 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     // Expedientes
     Route::get('/expedientes', [\App\Http\Controllers\Admin\ExpedientesController::class, 'index'])->name('expedientes.index');
     Route::get('/expedientes/buscar', [\App\Http\Controllers\Admin\ExpedientesController::class, 'search'])->name('expedientes.search');
+    Route::get('/expedientes/nuevo', [\App\Http\Controllers\Admin\ExpedientesController::class, 'create'])->name('expedientes.create');
+    Route::post('/expedientes', [\App\Http\Controllers\Admin\ExpedientesController::class, 'store'])->name('expedientes.store');
     Route::get('/expedientes/{mascota}/consultas', [\App\Http\Controllers\Admin\ExpedientesController::class, 'consultas'])->name('expedientes.consultas');
     Route::get('/expedientes/{mascota}/consultas/{consulta}', [\App\Http\Controllers\Admin\ExpedientesController::class, 'detalleConsulta'])->name('expedientes.consultas.show');
     Route::get('/expedientes/{mascota}/consultas/{consulta}/diagnostico', [\App\Http\Controllers\Admin\ExpedientesController::class, 'diagnostico'])->name('expedientes.consultas.diagnostico');
     Route::post('/expedientes/{mascota}/consultas/{consulta}/diagnostico', [\App\Http\Controllers\Admin\ExpedientesController::class, 'guardarDiagnostico'])->name('expedientes.consultas.diagnostico.store');
+    
+    Route::get('/expedientes/{mascota}/consultas/{consulta}/tratamiento', [\App\Http\Controllers\Admin\ExpedientesController::class, 'tratamiento'])->name('expedientes.consultas.tratamiento');
+    Route::post('/expedientes/{mascota}/consultas/{consulta}/tratamiento', [\App\Http\Controllers\Admin\ExpedientesController::class, 'guardarTratamiento'])->name('expedientes.consultas.tratamiento.store');
 });

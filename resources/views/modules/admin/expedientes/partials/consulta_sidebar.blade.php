@@ -33,8 +33,8 @@
             <span>Diagnóstico</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link pt-1" href="#">
+    <li class="nav-item {{ request()->routeIs('admin.expedientes.consultas.tratamiento') ? 'active' : '' }}">
+        <a class="nav-link pt-1" href="{{ route('admin.expedientes.consultas.tratamiento', [$mascota->id, $consulta->id]) }}">
             <i class="fas fa-fw fa-pills"></i>
             <span>Tratamiento</span>
         </a>

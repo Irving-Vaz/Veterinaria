@@ -41,7 +41,7 @@
                             <span class="text">Ver Historial de Consultas</span>
                         </a>
 
-                        <a href="#" class="btn btn-success btn-icon-split shadow-sm m-2">
+                        <a href="{{ route('admin.expedientes.create') }}" class="btn btn-success btn-icon-split shadow-sm m-2">
                             <span class="icon text-white-50">
                                 <i class="fas fa-paw"></i>
                             </span>
