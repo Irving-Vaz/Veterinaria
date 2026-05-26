@@ -1,0 +1,43 @@
+/* public/css/vet-theme.css */
+
+/* Fondo principal */
+body, #page-top, #wrapper #content-wrapper {
+    background-color: #F8FAFC !important;
+}
+
+/* Sidebar */
+.sidebar, .bg-gradient-primary {
+    background-color: #0F766E !important;
+    background-image: none !important;
+}
+
+/* Botón principal y elementos primarios */
+.btn-primary {
+    background-color: #14B8A6 !important;
+    border-color: #14B8A6 !important;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #0D9488 !important;
+    border-color: #0D9488 !important;
+}
+.text-primary { color: #14B8A6 !important; }
+.border-left-primary { border-left-color: #14B8A6 !important; }
+.badge-primary { background-color: #14B8A6 !important; }
+.page-item.active .page-link { background-color: #14B8A6 !important; border-color: #14B8A6 !important; }
+
+/* Tarjetas */
+.card {
+    background-color: #FFFFFF !important;
+}
+
+/* Resaltados */
+.bg-highlight, .badge-info { 
+    background-color: #99F6E4 !important; 
+    color: #0F766E !important; 
+}
+.text-highlight { 
+    color: #0D9488 !important; 
+}
+.border-left-info {
+    border-left-color: #99F6E4 !important;
+}

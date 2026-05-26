@@ -21,6 +21,7 @@
 
     {{-- Admin panel custom styles --}}
     <link href="/css/admin.css" rel="stylesheet">
+    <link href="/css/admin-theme.css" rel="stylesheet">
 
     {{-- Toast notifications --}}
     <link href="/css/toast.css" rel="stylesheet">

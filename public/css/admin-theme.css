@@ -1,0 +1,40 @@
+/* public/css/admin-theme.css */
+
+/* Fondo principal */
+body, #page-top, #wrapper #content-wrapper {
+    background-color: #F4F7FA !important;
+}
+
+/* Sidebar */
+.sidebar, .bg-gradient-primary {
+    background-color: #1E293B !important;
+    background-image: none !important;
+}
+
+/* Primary (Botones principales, textos, badges, bordes) */
+.btn-primary {
+    background-color: #2563EB !important;
+    border-color: #2563EB !important;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #1D4ED8 !important;
+    border-color: #1D4ED8 !important;
+}
+.text-primary { color: #2563EB !important; }
+.border-left-primary { border-left-color: #2563EB !important; }
+.badge-primary { background-color: #2563EB !important; }
+.page-item.active .page-link { background-color: #2563EB !important; border-color: #2563EB !important; }
+
+/* Éxito */
+.btn-success { background-color: #10B981 !important; border-color: #10B981 !important; }
+.btn-success:hover, .btn-success:focus, .btn-success:active { background-color: #059669 !important; border-color: #059669 !important; }
+.text-success { color: #10B981 !important; }
+.border-left-success { border-left-color: #10B981 !important; }
+.badge-success { background-color: #10B981 !important; }
+
+/* Error */
+.btn-danger { background-color: #EF4444 !important; border-color: #EF4444 !important; }
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active { background-color: #DC2626 !important; border-color: #DC2626 !important; }
+.text-danger { color: #EF4444 !important; }
+.border-left-danger { border-left-color: #EF4444 !important; }
+.badge-danger { background-color: #EF4444 !important; }

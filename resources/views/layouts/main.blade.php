@@ -22,6 +22,9 @@
     {{-- Toast notifications --}}
     <link href="/css/toast.css" rel="stylesheet">
 
+    {{-- Vet Theme --}}
+    <link href="/css/vet-theme.css" rel="stylesheet">
+
     @stack('styles')
 </head>
 

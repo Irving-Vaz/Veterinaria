@@ -22,7 +22,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Total Usuarios</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalUsuarios }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -39,7 +39,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Veterinarios</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalVeterinarios }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-md fa-2x text-gray-300"></i>
@@ -138,12 +138,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td colspan="5" class="text-center text-gray-500 py-4">
-                                        <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
-                                        No hay usuarios registrados aún.
-                                    </td>
-                                </tr>
+                                @forelse($users as $user)
+                                    <tr>
+                                        <td>{{ $user->id }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>
+                                            @if($user->rol === 'administrador')
+                                                <span class="badge badge-primary">Administrador</span>
+                                            @else
+                                                <span class="badge badge-warning">Veterinario</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-info btn-circle" title="Editar">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-sm btn-danger btn-circle" title="Ver / Eliminar">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center text-gray-500 py-4">
+                                            <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
+                                            No hay usuarios registrados aún.
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

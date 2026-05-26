@@ -53,6 +53,10 @@ class AuthController extends Controller
     // ── Administrador ─────────────────────────────────────────────
     public function adminDashboard()
     {
-        return view('modules/admin/dashboard');
+        $totalUsuarios = \App\Models\User::count();
+        $totalVeterinarios = \App\Models\User::where('rol', 'veterinario')->count();
+        $users = \App\Models\User::orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('modules/admin/dashboard', compact('totalUsuarios', 'totalVeterinarios', 'users'));
     }
 }
