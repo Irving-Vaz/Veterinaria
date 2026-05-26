@@ -202,4 +202,103 @@ class ExpedientesController extends Controller
         return redirect()->route('admin.expedientes.consultas.alergias', [$mascota->id, $consulta->id])
                          ->with('toast_success', 'Alergias actualizadas con éxito');
     }
+
+    public function lesiones(\App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        return view('modules.admin.expedientes.lesiones', compact('mascota', 'consulta'));
+    }
+
+    public function guardarLesiones(Request $request, \App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        $request->validate([
+            'lesiones' => 'nullable|array',
+            'lesiones.*.lugar' => 'required|string|max:255',
+            'lesiones.*.procedimiento' => 'required|string|max:255',
+            'lesiones.*.fecha' => 'required|date',
+            'lesiones.*.vincular_consulta' => 'nullable',
+            // vinculamos el id de la consulta solo si el checkbox esta marcado
+        ]);
+
+        $lesionesInput = $request->input('lesiones', []);
+        
+        $lesionesGuardar = [];
+        foreach ($lesionesInput as $lesion) {
+            $consultaIdVinculada = isset($lesion['vincular_consulta']) && $lesion['vincular_consulta'] ? $consulta->id : ($lesion['consulta_id'] ?? null);
+            
+            $lesionesGuardar[] = [
+                'lugar' => $lesion['lugar'],
+                'procedimiento' => $lesion['procedimiento'],
+                'fecha' => $lesion['fecha'],
+                'consulta_id' => $consultaIdVinculada
+            ];
+        }
+
+        $mascota->lesiones = $lesionesGuardar;
+        $mascota->save();
+
+        return redirect()->route('admin.expedientes.consultas.lesiones', [$mascota->id, $consulta->id])
+                         ->with('toast_success', 'Historial de lesiones actualizado con éxito');
+    }
+
+    public function alimentacion(\App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        return view('modules.admin.expedientes.alimentacion', compact('mascota', 'consulta'));
+    }
+
+    public function guardarAlimentacion(Request $request, \App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        $request->validate([
+            'dietas' => 'nullable|array',
+            'dietas.*.dieta_especial' => 'nullable|boolean',
+            'dietas.*.motivo_dieta' => 'nullable|string|max:255',
+            'dietas.*.dieta_terapeutica' => 'nullable|string|max:255',
+            'dietas.*.fecha_inicio' => 'required|date',
+            'dietas.*.fecha_fin' => 'nullable|date',
+            'dietas.*.permanente' => 'nullable|boolean',
+            'dietas.*.veterinario_responsable' => 'nullable|string|max:255',
+            'dietas.*.restricciones' => 'nullable|string|max:1000',
+            'dietas.*.observaciones_nutricionales' => 'nullable|string|max:1000',
+        ]);
+
+        $dietasInput = $request->input('dietas', []);
+        
+        $dietasGuardar = [];
+        foreach ($dietasInput as $dieta) {
+            $permanente = isset($dieta['permanente']) && $dieta['permanente'];
+            $dietasGuardar[] = [
+                'dieta_especial' => isset($dieta['dieta_especial']) && $dieta['dieta_especial'],
+                'motivo_dieta' => $dieta['motivo_dieta'] ?? null,
+                'dieta_terapeutica' => $dieta['dieta_terapeutica'] ?? null,
+                'fecha_inicio' => $dieta['fecha_inicio'],
+                'fecha_fin' => $permanente ? null : ($dieta['fecha_fin'] ?? null),
+                'permanente' => $permanente,
+                'veterinario_responsable' => $dieta['veterinario_responsable'] ?? null,
+                'restricciones' => $dieta['restricciones'] ?? null,
+                'observaciones_nutricionales' => $dieta['observaciones_nutricionales'] ?? null,
+                'consulta_id' => $consulta->id // Siempre lo vinculamos a la consulta donde se editó
+            ];
+        }
+
+        $mascota->alimentacion = $dietasGuardar;
+        $mascota->save();
+
+        return redirect()->route('admin.expedientes.consultas.alimentacion', [$mascota->id, $consulta->id])
+                         ->with('toast_success', 'Historial de alimentación actualizado con éxito');
+    }
 }

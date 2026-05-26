@@ -54,8 +54,8 @@
             <span>Alergias</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link py-1" href="#">
+    <li class="nav-item {{ request()->routeIs('admin.expedientes.consultas.lesiones') ? 'active' : '' }}">
+        <a class="nav-link py-1" href="{{ route('admin.expedientes.consultas.lesiones', [$mascota->id, $consulta->id]) }}">
             <i class="fas fa-fw fa-band-aid"></i>
             <span>Lesiones Previas</span>
         </a>
@@ -66,8 +66,8 @@
             <span>Patologías</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link pt-1" href="#">
+    <li class="nav-item {{ request()->routeIs('admin.expedientes.consultas.alimentacion') ? 'active' : '' }}">
+        <a class="nav-link pt-1" href="{{ route('admin.expedientes.consultas.alimentacion', [$mascota->id, $consulta->id]) }}">
             <i class="fas fa-fw fa-bone"></i>
             <span>Alimentación</span>
         </a>

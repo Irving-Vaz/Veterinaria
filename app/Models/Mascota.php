@@ -18,12 +18,16 @@ class Mascota extends Model
         'comportamiento',
         'es_adoptado',
         'alergias',
+        'lesiones',
+        'alimentacion',
     ];
 
     protected $casts = [
         'fecha_nacimiento' => 'date',
         'es_adoptado' => 'boolean',
         'alergias' => 'array',
+        'lesiones' => 'array',
+        'alimentacion' => 'array',
     ];
 
     public function dueno()

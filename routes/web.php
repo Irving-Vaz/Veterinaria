@@ -41,4 +41,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/expedientes/{mascota}/consultas/{consulta}/alergias', [\App\Http\Controllers\Admin\ExpedientesController::class, 'alergias'])->name('expedientes.consultas.alergias');
     Route::post('/expedientes/{mascota}/consultas/{consulta}/alergias', [\App\Http\Controllers\Admin\ExpedientesController::class, 'guardarAlergias'])->name('expedientes.consultas.alergias.store');
+
+    Route::get('/expedientes/{mascota}/consultas/{consulta}/lesiones', [\App\Http\Controllers\Admin\ExpedientesController::class, 'lesiones'])->name('expedientes.consultas.lesiones');
+    Route::post('/expedientes/{mascota}/consultas/{consulta}/lesiones', [\App\Http\Controllers\Admin\ExpedientesController::class, 'guardarLesiones'])->name('expedientes.consultas.lesiones.store');
+
+    Route::get('/expedientes/{mascota}/consultas/{consulta}/alimentacion', [\App\Http\Controllers\Admin\ExpedientesController::class, 'alimentacion'])->name('expedientes.consultas.alimentacion');
+    Route::post('/expedientes/{mascota}/consultas/{consulta}/alimentacion', [\App\Http\Controllers\Admin\ExpedientesController::class, 'guardarAlimentacion'])->name('expedientes.consultas.alimentacion.store');
 });
