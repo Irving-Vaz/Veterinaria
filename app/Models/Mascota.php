@@ -20,6 +20,7 @@ class Mascota extends Model
         'alergias',
         'lesiones',
         'alimentacion',
+        'patologias',
     ];
 
     protected $casts = [
@@ -28,6 +29,7 @@ class Mascota extends Model
         'alergias' => 'array',
         'lesiones' => 'array',
         'alimentacion' => 'array',
+        'patologias' => 'array',
     ];
 
     public function dueno()

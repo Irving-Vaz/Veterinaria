@@ -60,8 +60,8 @@
             <span>Lesiones Previas</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link py-1" href="#">
+    <li class="nav-item {{ request()->routeIs('admin.expedientes.consultas.patologias') ? 'active' : '' }}">
+        <a class="nav-link py-1" href="{{ route('admin.expedientes.consultas.patologias', [$mascota->id, $consulta->id]) }}">
             <i class="fas fa-fw fa-virus"></i>
             <span>Patologías</span>
         </a>

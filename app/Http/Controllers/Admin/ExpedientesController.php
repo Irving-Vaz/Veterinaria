@@ -301,4 +301,43 @@ class ExpedientesController extends Controller
         return redirect()->route('admin.expedientes.consultas.alimentacion', [$mascota->id, $consulta->id])
                          ->with('toast_success', 'Historial de alimentación actualizado con éxito');
     }
+
+    public function patologias(\App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        return view('modules.admin.expedientes.patologias', compact('mascota', 'consulta'));
+    }
+
+    public function guardarPatologias(Request $request, \App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        $request->validate([
+            'patologias' => 'nullable|array',
+            'patologias.*.enfermedad' => 'required|string|max:255',
+            'patologias.*.es_cronica' => 'nullable|boolean',
+        ]);
+
+        $patologiasInput = $request->input('patologias', []);
+        
+        $patologiasGuardar = [];
+        foreach ($patologiasInput as $patologia) {
+            $patologiasGuardar[] = [
+                'enfermedad' => $patologia['enfermedad'],
+                'es_cronica' => isset($patologia['es_cronica']) && $patologia['es_cronica'],
+                'consulta_id' => $consulta->id
+            ];
+        }
+
+        $mascota->patologias = $patologiasGuardar;
+        $mascota->save();
+
+        return redirect()->route('admin.expedientes.consultas.patologias', [$mascota->id, $consulta->id])
+                         ->with('toast_success', 'Antecedentes patológicos actualizados con éxito');
+    }
 }
