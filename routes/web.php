@@ -38,4 +38,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     
     Route::get('/expedientes/{mascota}/consultas/{consulta}/tratamiento', [\App\Http\Controllers\Admin\ExpedientesController::class, 'tratamiento'])->name('expedientes.consultas.tratamiento');
     Route::post('/expedientes/{mascota}/consultas/{consulta}/tratamiento', [\App\Http\Controllers\Admin\ExpedientesController::class, 'guardarTratamiento'])->name('expedientes.consultas.tratamiento.store');
+
+    Route::get('/expedientes/{mascota}/consultas/{consulta}/alergias', [\App\Http\Controllers\Admin\ExpedientesController::class, 'alergias'])->name('expedientes.consultas.alergias');
+    Route::post('/expedientes/{mascota}/consultas/{consulta}/alergias', [\App\Http\Controllers\Admin\ExpedientesController::class, 'guardarAlergias'])->name('expedientes.consultas.alergias.store');
 });

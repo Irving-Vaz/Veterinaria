@@ -17,11 +17,13 @@ class Mascota extends Model
         'tipo_sangre',
         'comportamiento',
         'es_adoptado',
+        'alergias',
     ];
 
     protected $casts = [
         'fecha_nacimiento' => 'date',
         'es_adoptado' => 'boolean',
+        'alergias' => 'array',
     ];
 
     public function dueno()

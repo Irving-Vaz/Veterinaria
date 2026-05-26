@@ -48,8 +48,8 @@
         Historial Clínico
     </div>
 
-    <li class="nav-item">
-        <a class="nav-link pb-1" href="#">
+    <li class="nav-item {{ request()->routeIs('admin.expedientes.consultas.alergias') ? 'active' : '' }}">
+        <a class="nav-link pt-1" href="{{ route('admin.expedientes.consultas.alergias', [$mascota->id, $consulta->id]) }}">
             <i class="fas fa-fw fa-allergies"></i>
             <span>Alergias</span>
         </a>

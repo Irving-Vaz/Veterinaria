@@ -172,4 +172,34 @@ class ExpedientesController extends Controller
         return redirect()->route('admin.expedientes.consultas.tratamiento', [$mascota->id, $consulta->id])
                          ->with('toast_success', $mensaje);
     }
+
+    public function alergias(\App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        return view('modules.admin.expedientes.alergias', compact('mascota', 'consulta'));
+    }
+
+    public function guardarAlergias(Request $request, \App\Models\Mascota $mascota, \App\Models\Consulta $consulta)
+    {
+        if ($consulta->mascota_id !== $mascota->id) {
+            abort(404);
+        }
+
+        $request->validate([
+            'alergias' => 'array',
+            'alergias.insectos' => 'nullable|string|max:1000',
+            'alergias.medicamentos' => 'nullable|string|max:1000',
+            'alergias.alimentos' => 'nullable|string|max:1000',
+            'alergias.ambientales' => 'nullable|string|max:1000',
+        ]);
+
+        $mascota->alergias = $request->input('alergias');
+        $mascota->save();
+
+        return redirect()->route('admin.expedientes.consultas.alergias', [$mascota->id, $consulta->id])
+                         ->with('toast_success', 'Alergias actualizadas con éxito');
+    }
 }
